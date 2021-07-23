@@ -1,65 +1,96 @@
-import './App.css';
-import { useEffect, useState } from 'react';
+import './app.sass'
+import { useEffect, useState, useRef } from 'react'
+import { authors, chats } from './constants'
+import Message from './Message'
+import { TextField, Grid, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
+import SendIcon from '@material-ui/icons/Send'
 
 function App() {
   const [messageList, setMessageList] = useState([])
   const [message, setMessage] = useState('')
-  const [botText, setBotText] = useState('')
+  const firstRender = useRef(true)
+  const [chatList, setChatList] = useState([])
 
   useEffect(() => {
-    setMessageList([
-      {
-        text: 'some text',
-        author: 'user1'
-      },
-      {
-        text: 'some text',
-        author: 'user2'
-      },
-      {
-        text: 'some text',
-        author: 'user3'
-      }
-    ])
-  }, [])
-
-  useEffect(() => {
-    setTimeout(() => {
-      setBotText('Hi, new user!')
-    }, 1500)
+    if (
+      !firstRender.current &&
+      messageList[messageList.length - 1]?.author !== authors.bot
+    ) {
+      setTimeout(() => {
+        setMessageList(current => [
+          ...current,
+          {
+            text: 'Hi!',
+            author: authors.bot
+          }
+        ])
+      }, 1500)
+    }
+    firstRender.current = false
   }, [messageList])
 
   const handleChange = event => {
     setMessage(event.target.value)
   }
 
-  const handleClick = () => {
-    setMessageList(() => {
-      return [
-        ...messageList,
+  const handleClick = (e) => {
+    e.preventDefault()
+    setMessageList(current => [
+        ...current,
         {
           text: message,
-          author: 'new user'
+          author: authors.me
         }
-      ]
-    })
+    ])
+    setMessage('')
   }
+
+  useEffect(() => {
+    setChatList(chats)
+  }, [])
 
   return (
     <div className="App">
-      <div className="message-block">
-        { messageList.map((message, index) => {
-          return (
-          <div key={ index }>
-            <p>{ message.text }</p>
-            <i>{ message.author }</i>
-          </div>
-          )
-        }) }
-      </div>
-      <span>{ botText }</span>
-      <textarea className="App-input" value={ message } onChange={ handleChange }></textarea>
-      <button className="App-btn" onClick={ handleClick }>Add message</button>
+      <Grid item xs={12} className="message-block">
+        <List>
+          { chatList.map(chat => 
+            <ListItem key={ chat.id }>
+              <ListItemAvatar>
+                <Avatar alt="" src="#" />
+              </ListItemAvatar>
+              <ListItemText
+                primary={ chat.name }
+              />
+            </ListItem>
+          ) }
+        </List>
+      </Grid>
+      <Grid item xs={12}>
+        <div className="message-block">
+          { messageList.map((message, index) => 
+            <Message
+              author={ message.author }
+              text={ message.text }
+              key={ index }
+            />
+          ) }
+        </div>
+        <form className="App__form" onSubmit={ handleClick }>
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            label="Write a message..."
+            value={ message }
+            onChange={ handleChange }
+            fullWidth
+            autoFocus
+            required
+          />
+          <button className="App__btn">
+            <SendIcon color="action" />
+          </button>
+        </form>
+      </Grid>
     </div>
   )
 }
