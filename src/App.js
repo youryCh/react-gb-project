@@ -1,10 +1,10 @@
-import './app.sass'
+import './style/app.sass'
 import { useEffect, useState, useRef } from 'react'
 import { authors } from './constants'
-import Message from './Message'
+import Message from './components/Message'
 import {TextField, Grid} from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
-import ChatList from './ChatList';
+import ChatList from './components/ChatList';
 
 function App() {
   const [messageList, setMessageList] = useState([])

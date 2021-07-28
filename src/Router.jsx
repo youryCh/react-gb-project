@@ -1,8 +1,9 @@
 import React from 'react';
 import {Switch, Route, Link} from 'react-router-dom';
 import App from './App';
-import Chat from './Chat';
-import ChatList from './ChatList';
+import Chat from './components/Chat';
+import ChatList from './components/ChatList';
+import Profile from './components/Profile';
 
 export default function Router() {
   return (
@@ -29,12 +30,12 @@ export default function Router() {
           <ChatList />
         </Route>
 
-        <Route path="/chats/:chatId?">
+        <Route path="/chats/:chatId">
           <Chat />
         </Route>
 
         <Route path="/profile">
-          Profile
+          <Profile />
         </Route>
 
         <Route>

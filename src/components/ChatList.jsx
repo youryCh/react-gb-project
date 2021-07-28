@@ -7,7 +7,7 @@ import {List,
 } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import {chats} from './constants';
+import {chats} from '../constants';
 
 export default function ChatList() {
   const [chatList, setChatList] = useState([]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import {chats} from './constants';
+import {chats} from '../constants';
 import {Redirect} from 'react-router-dom';
 
 export default function Chat() {
