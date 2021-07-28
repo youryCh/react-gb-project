@@ -1,15 +1,15 @@
 import './app.sass'
 import { useEffect, useState, useRef } from 'react'
-import { authors, chats } from './constants'
+import { authors } from './constants'
 import Message from './Message'
-import { TextField, Grid, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
+import {TextField, Grid} from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
+import ChatList from './ChatList';
 
 function App() {
   const [messageList, setMessageList] = useState([])
   const [message, setMessage] = useState('')
   const firstRender = useRef(true)
-  const [chatList, setChatList] = useState([])
 
   useEffect(() => {
     if (
@@ -45,25 +45,10 @@ function App() {
     setMessage('')
   }
 
-  useEffect(() => {
-    setChatList(chats)
-  }, [])
-
   return (
     <div className="App">
       <Grid item xs={12} className="message-block">
-        <List>
-          { chatList.map(chat => 
-            <ListItem key={ chat.id }>
-              <ListItemAvatar>
-                <Avatar alt="" src="#" />
-              </ListItemAvatar>
-              <ListItemText
-                primary={ chat.name }
-              />
-            </ListItem>
-          ) }
-        </List>
+        <ChatList />
       </Grid>
       <Grid item xs={12}>
         <div className="message-block">

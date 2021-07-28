@@ -1,19 +1,19 @@
 export const authors = {
   me: 'You',
   bot: 'Bot'
-}
+};
 
 export const chats = [
   {
     name: 'Bob',
-    id: 'kj3k2'
+    id: '1'
   },
   {
     name: 'Rick',
-    id: '7dfgd'
+    id: '2'
   },
   {
     name: 'Morty',
-    id: 'bn3sd'
+    id: '3'
   }
-]
+];
