@@ -30,7 +30,7 @@ export default function Router() {
           <ChatList />
         </Route>
 
-        <Route path="/chats/:chatId">
+        <Route path="/chats/chat:chatId">
           <Chat />
         </Route>
 

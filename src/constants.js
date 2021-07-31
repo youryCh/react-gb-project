@@ -6,14 +6,14 @@ export const authors = {
 export const chats = [
   {
     name: 'Bob',
-    id: '1'
+    id: 'chat1'
   },
   {
     name: 'Rick',
-    id: '2'
+    id: 'chat2'
   },
   {
     name: 'Morty',
-    id: '3'
+    id: 'chat3'
   }
 ];

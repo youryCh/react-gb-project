@@ -1,49 +1,51 @@
-import './style/app.sass'
-import { useEffect, useState, useRef } from 'react'
-import { authors } from './constants'
-import Message from './components/Message'
-import {TextField, Grid} from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send'
+import './style/app.sass';
+import { useEffect, useState, useRef } from 'react';
+import { authors } from './constants';
+import Message from './components/Message';
+import {TextField, Grid} from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 import ChatList from './components/ChatList';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from './store/messages/actions';
 
 function App() {
-  const [messageList, setMessageList] = useState([])
   const [message, setMessage] = useState('')
   const firstRender = useRef(true)
+  const messageList = useSelector(state => state.messages);
+  const dispatch = useDispatch();
+  const currentChatId = 'chat1';
 
-  useEffect(() => {
-    if (
-      !firstRender.current &&
-      messageList[messageList.length - 1]?.author !== authors.bot
-    ) {
-      setTimeout(() => {
-        setMessageList(current => [
-          ...current,
-          {
-            text: 'Hi!',
-            author: authors.bot
-          }
-        ])
-      }, 1500)
-    }
-    firstRender.current = false
-  }, [messageList])
+
+  // useEffect(() => {
+  //   if (
+  //     !firstRender.current &&
+  //     messageList[currentChatId][messageList[currentChatId].length - 1]?.author !== authors.bot
+  //   ) {
+  //     setTimeout(() => {
+  //       const botMessage = {
+  //         text: 'Hi!',
+  //         author: authors.bot
+  //       };
+  //       dispatch(currentChatId, botMessage);
+  //     }, 1500)
+  //   }
+  //   firstRender.current = false
+  // }, [messageList, dispatch])
 
   const handleChange = event => {
     setMessage(event.target.value)
   }
 
   const handleClick = (e) => {
-    e.preventDefault()
-    setMessageList(current => [
-        ...current,
-        {
-          text: message,
-          author: authors.me
-        }
-    ])
-    setMessage('')
-  }
+    e.preventDefault();
+    const currentMessage = {
+      text: message,
+      author: authors.me
+    };
+
+    dispatch(addMessage(currentChatId, currentMessage));
+    setMessage('');
+  };
 
   return (
     <div className="App">
@@ -52,11 +54,10 @@ function App() {
       </Grid>
       <Grid item xs={12}>
         <div className="message-block">
-          { messageList.map((message, index) => 
+          { messageList[currentChatId].map(message => 
             <Message
-              author={ message.author }
-              text={ message.text }
-              key={ index }
+              message={ message }
+              key={ message.id }
             />
           ) }
         </div>

@@ -7,7 +7,6 @@ export default function Chat() {
   const {chatId} = useParams();
 
   if (!chatId || !chats[chatId - 1]) {
-    console.log(chatId);
     return <Redirect to="/chats" />;
   }
   

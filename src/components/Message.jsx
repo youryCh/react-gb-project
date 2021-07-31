@@ -1,10 +1,12 @@
 function Message(props) {
-  return (
-    <div className="message" key={ props.index }>
-      <i className="message_author">{ props.author }:</i>
-      <p>{ props.text }</p>
-    </div>
-  )
-}
+  const { text, author } = props.message;
 
-export default Message
+  return (
+    <div className="message">
+      <i className="message_author">{ author }:</i>
+      <p>{ text }</p>
+    </div>
+  );
+};
+
+export default Message;
