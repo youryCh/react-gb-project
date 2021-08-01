@@ -11,9 +11,10 @@ import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addChat } from '../store/chats/actions';
+import { getChats } from '../store/chats/selectors';
 
 export default function ChatList() {
-  const chats = useSelector(state => state.chats);
+  const chats = useSelector(getChats);
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 

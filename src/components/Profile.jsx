@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeName, setShowName } from '../store/profile/actions';
+import { getProfile } from '../store/profile/selectors';
 
 export default function Profile(props) {
   const [inputValue, setInputValue] = React.useState('');
   const dispatch = useDispatch();
-  const { name, showName } = useSelector(state => state.profile);
+  const { name, showName } = useSelector(getProfile);
 
   const handleChange = event => {
     setInputValue(event.target.value);

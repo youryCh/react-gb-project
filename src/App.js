@@ -7,11 +7,12 @@ import SendIcon from '@material-ui/icons/Send';
 import ChatList from './components/ChatList';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from './store/messages/actions';
+import { getMessages } from './store/messages/selectors';
 
 function App() {
   const [message, setMessage] = useState('')
   const firstRender = useRef(true)
-  const messageList = useSelector(state => state.messages);
+  const messageList = useSelector(getMessages);
   const dispatch = useDispatch();
   const currentChatId = 'chat1';
 
