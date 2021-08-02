@@ -19,13 +19,24 @@ const initialState = {
 export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
+      if (state[action.payload.chatId]) {
+        return {
+          ...state,
+          [action.payload.chatId]: [
+            ...state[action.payload.chatId],
+            {
+              ...action.payload.message,
+              id: `message${state[action.payload.chatId].length + 1}`
+            }
+          ]
+        };
+      }
       return {
         ...state,
         [action.payload.chatId]: [
-          ...state[action.payload.chatId],
           {
             ...action.payload.message,
-            id: `message${state[action.payload.chatId].length + 1}`
+            id: 'message1'
           }
         ]
       };

@@ -18,9 +18,8 @@ export const chatsReducer = (state = initialState, action) => {
 
     case REMOVE_CHAT:
       return [
-        ...state,
-        
-      ]
+        ...state.filter((item) => item.id !== action.payload.chatId)
+      ];
 
     default:
       return state;

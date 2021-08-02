@@ -21,7 +21,6 @@ export const setShowName = (showName) => {
 
 export const setShowNameWithThunk = showName => {
   return (dispatch, getState) => {
-    // console.log(getState());
     setTimeout(() => {
       dispatch(setShowName(showName));
     }, 2000);

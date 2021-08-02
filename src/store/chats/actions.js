@@ -10,11 +10,11 @@ export const addChat = name => {
   };
 };
 
-export const removeChat = id => {
+export const removeChat = chatId => {
   return {
     type: REMOVE_CHAT,
     payload: {
-      id
+      chatId
     }
   };
 };

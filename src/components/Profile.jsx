@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, setShowName, setShowNameWithThunk } from '../store/profile/actions';
+import { changeName, setShowNameWithThunk } from '../store/profile/actions';
 import { getProfile } from '../store/profile/selectors';
 
 export default function Profile() {
@@ -23,7 +23,7 @@ export default function Profile() {
 
   return (
     <React.Fragment>
-      <h3>Your Profile</h3>
+      <h3>Profile</h3>
       <span style={showName ? {visibility: 'visible'} : {visibility: 'hidden'}}>
         Name: {name}
       </span>

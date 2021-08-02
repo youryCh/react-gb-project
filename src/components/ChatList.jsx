@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   List,
   ListItem,
@@ -9,8 +9,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { addChat } from '../store/chats/actions';
+import { addChat, removeChat } from '../store/chats/actions';
 import { getChats } from '../store/chats/selectors';
 
 export default function ChatList() {
@@ -28,26 +27,30 @@ export default function ChatList() {
     setValue('');
   };
 
-  const handleClickDelete = event => {
-    const item = event.target.id;
-    console.log(item);
-  }
+  const handleClickDelete = chatId => {
+    console.log(chatId);
+    dispatch(removeChat(chatId));
+  };
 
   return (
     <React.Fragment>
+      <h3>Chats</h3>
       <List>
-        { chats ? chats.map(chat =>
-          <Link to={`/chats/${chat.id}`} key={ chat.id } id={ chat.id }>
-            <ListItem>
+        { chats ? chats.map((chat, id) =>
+          <ListItem key={ id }>
+            <Link
+              to={`/chats/${chat.id}`}
+              className="chat-link"
+            >
               <ListItemAvatar>
                 <Avatar alt="" src="#" />
               </ListItemAvatar>
               <ListItemText
                 primary={ chat.name }
               />
-              <DeleteIcon onClick={ handleClickDelete } />
-            </ListItem>
-          </Link>
+            </Link>
+            <DeleteIcon onClick={() => handleClickDelete(chat.id) } />
+          </ListItem>
         ) : <span>No chats</span> }
       </List>
       <form onSubmit={ handleSubmit }>

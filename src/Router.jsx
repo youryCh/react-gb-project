@@ -1,6 +1,5 @@
 import React from 'react';
 import {Switch, Route, Link} from 'react-router-dom';
-import App from './App';
 import Chat from './components/Chat';
 import ChatList from './components/ChatList';
 import Profile from './components/Profile';
@@ -23,14 +22,14 @@ export default function Router() {
       </header>
       <Switch>
         <Route path="/" exact>
-          <App />
+          <h3>Home page</h3>
         </Route>
 
         <Route path="/chats" exact>
           <ChatList />
         </Route>
 
-        <Route path="/chats/chat:chatId">
+        <Route path="/chats/:chatId">
           <Chat />
         </Route>
 
