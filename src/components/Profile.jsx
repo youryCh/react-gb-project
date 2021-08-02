@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, setShowName } from '../store/profile/actions';
+import { changeName, setShowName, setShowNameWithThunk } from '../store/profile/actions';
 import { getProfile } from '../store/profile/selectors';
 
-export default function Profile(props) {
+export default function Profile() {
   const [inputValue, setInputValue] = React.useState('');
   const dispatch = useDispatch();
   const { name, showName } = useSelector(getProfile);
@@ -18,7 +18,7 @@ export default function Profile(props) {
   };
 
   const handleShowName = () => {
-    dispatch(setShowName(showName));
+    dispatch(setShowNameWithThunk(showName));
   };
 
   return (

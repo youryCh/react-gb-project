@@ -1,37 +1,19 @@
 import './style/app.sass';
-import { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import { authors } from './constants';
 import Message from './components/Message';
 import {TextField, Grid} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import ChatList from './components/ChatList';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage } from './store/messages/actions';
+import { addMessageWithThunk } from './store/messages/actions';
 import { getMessages } from './store/messages/selectors';
 
 function App() {
   const [message, setMessage] = useState('')
-  const firstRender = useRef(true)
   const messageList = useSelector(getMessages);
   const dispatch = useDispatch();
   const currentChatId = 'chat1';
-
-
-  // useEffect(() => {
-  //   if (
-  //     !firstRender.current &&
-  //     messageList[currentChatId][messageList[currentChatId].length - 1]?.author !== authors.bot
-  //   ) {
-  //     setTimeout(() => {
-  //       const botMessage = {
-  //         text: 'Hi!',
-  //         author: authors.bot
-  //       };
-  //       dispatch(currentChatId, botMessage);
-  //     }, 1500)
-  //   }
-  //   firstRender.current = false
-  // }, [messageList, dispatch])
 
   const handleChange = event => {
     setMessage(event.target.value)
@@ -43,11 +25,10 @@ function App() {
       text: message,
       author: authors.me
     };
-
-    dispatch(addMessage(currentChatId, currentMessage));
+    dispatch(addMessageWithThunk(currentChatId, currentMessage));
     setMessage('');
   };
-
+  
   return (
     <div className="App">
       <Grid item xs={12} className="message-block">
