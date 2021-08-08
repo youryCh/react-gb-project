@@ -3,6 +3,7 @@ import {Switch, Route, Link} from 'react-router-dom';
 import Chat from './components/Chat';
 import ChatList from './components/ChatList';
 import Profile from './components/Profile';
+import { News } from './components/News';
 
 export default function Router() {
   return (
@@ -17,6 +18,9 @@ export default function Router() {
           </li>
           <li>
             <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/news">News</Link>
           </li>
         </ul>
       </header>
@@ -35,6 +39,10 @@ export default function Router() {
 
         <Route path="/profile">
           <Profile />
+        </Route>
+
+        <Route path="/news">
+          <News />
         </Route>
 
         <Route>

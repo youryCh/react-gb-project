@@ -5,16 +5,21 @@ import { chatsReducer } from './chats/reducer';
 import thunk from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { newsReducer } from './news/reducer';
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  blacklist: [
+    'news'
+  ]
 };
 
 const rootReducer = combineReducers({
   profile: profileReducer,
   chats: chatsReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  news: newsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
