@@ -1,8 +1,9 @@
 import React from 'react';
 import {Switch, Route, Link} from 'react-router-dom';
-import App from './App';
-import Chat from './Chat';
-import ChatList from './ChatList';
+import Chat from './components/Chat';
+import ChatList from './components/ChatList';
+import Profile from './components/Profile';
+import { News } from './components/News';
 
 export default function Router() {
   return (
@@ -18,23 +19,30 @@ export default function Router() {
           <li>
             <Link to="/profile">Profile</Link>
           </li>
+          <li>
+            <Link to="/news">News</Link>
+          </li>
         </ul>
       </header>
       <Switch>
         <Route path="/" exact>
-          <App />
+          <h3>Home page</h3>
         </Route>
 
         <Route path="/chats" exact>
           <ChatList />
         </Route>
 
-        <Route path="/chats/:chatId?">
+        <Route path="/chats/:chatId">
           <Chat />
         </Route>
 
         <Route path="/profile">
-          Profile
+          <Profile />
+        </Route>
+
+        <Route path="/news">
+          <News />
         </Route>
 
         <Route>
