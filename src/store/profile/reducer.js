@@ -1,9 +1,10 @@
-import { CHANGE_NAME, SHOW_NAME } from "./actions";
+import { CHANGE_IS_AUTHED, CHANGE_NAME, SHOW_NAME } from "./actions";
 
 const initialState = {
   id: null,
   name: 'Unknown',
-  showName: true
+  showName: true,
+  isAuthed: false
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -20,7 +21,13 @@ export const profileReducer = (state = initialState, action) => {
         showName: !action.payload.showName
       };
 
+    case CHANGE_IS_AUTHED:
+      return {
+        ...state,
+        isAuthed: action.payload.isAuthed
+      };
+
     default:
       return state;
   }
-}
+};

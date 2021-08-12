@@ -1,18 +1,25 @@
 import './style/app.sass';
-import { Grid } from '@material-ui/core';
-import ChatList from './components/ChatList';
-import Chat from './components/Chat';
+import React from 'react';
+import firebase from 'firebase';
+import { useDispatch } from 'react-redux';
+import { setIsAuthed } from './store/profile/actions';
+import Router from './Router';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
+  const dispatch = useDispatch();
+  
+  React.useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
+      dispatch(setIsAuthed(!!user));
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <Grid item xs={12} className="message-block">
-        <ChatList />
-      </Grid>
-      <Grid item xs={12}>
-        <Chat />
-      </Grid>
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 

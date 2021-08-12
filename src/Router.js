@@ -4,6 +4,8 @@ import Chat from './components/Chat';
 import ChatList from './components/ChatList';
 import Profile from './components/Profile';
 import { News } from './components/News';
+import { PrivateRoute } from './components/PrivateRoute';
+import { Login } from './components/Login';
 
 export default function Router() {
   return (
@@ -29,20 +31,24 @@ export default function Router() {
           <h3>Home page</h3>
         </Route>
 
-        <Route path="/chats" exact>
+        <PrivateRoute path="/chats" exact>
           <ChatList />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/chats/:chatId">
+        <PrivateRoute path="/chats/:chatId">
           <Chat />
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/profile">
+        <PrivateRoute path="/profile">
           <Profile />
-        </Route>
+        </PrivateRoute>
 
         <Route path="/news">
           <News />
+        </Route>
+
+        <Route path="/login">
+          <Login />
         </Route>
 
         <Route>

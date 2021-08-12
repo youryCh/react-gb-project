@@ -1,5 +1,6 @@
 export const CHANGE_NAME = 'PROFILE::CHANGE_NAME';
 export const SHOW_NAME = 'PROFILE::SHOW_NAME';
+export const CHANGE_IS_AUTHED = 'PROFILE::CHANGE_IS_AUTHED';
 
 export const changeName = name => {
   return {
@@ -24,5 +25,14 @@ export const setShowNameWithThunk = showName => {
     setTimeout(() => {
       dispatch(setShowName(showName));
     }, 2000);
+  };
+};
+
+export const setIsAuthed = isAuthed => {
+  return {
+    type: CHANGE_IS_AUTHED,
+    payload: {
+      isAuthed
+    }
   };
 };

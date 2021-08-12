@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authors } from '../constants';
-import { Redirect, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import {TextField} from '@material-ui/core';
 import Message from './Message';
@@ -29,10 +29,6 @@ export default function Chat() {
     setMessage('');
   };
 
-  // if (!chatId || !chats[chatId - 1]) {
-  //   return <Redirect to="/chats" />;
-  // }
-  
   return (
     <React.Fragment>
       <span>Chat {chatId} page</span>
