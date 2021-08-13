@@ -4,28 +4,58 @@ import { useParams } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import {TextField} from '@material-ui/core';
 import Message from './Message';
-import { useDispatch, useSelector } from 'react-redux';
-import { addMessageWithThunk } from '../store/messages/actions';
-import { getMessages } from '../store/messages/selectors';
 import '../style/app.sass';
+import firebase from 'firebase';
 
 export default function Chat() {
   const { chatId } = useParams();
   const [message, setMessage] = useState('');
-  const messageList = useSelector(getMessages);
-  const dispatch = useDispatch();
+  const [messageList, setMessageList] = useState([]);
+  const db = firebase.database();
 
   const handleChange = event => {
     setMessage(event.target.value);
   };
 
+  React.useEffect(() => {
+    firebase.database().ref('messages').child(chatId).get()
+      .then(snapshot => {
+        let messages = [];
+
+        snapshot.forEach(item => {
+          messages.push(item.val());
+        });
+
+        setMessageList(messages);
+        messageListChangeListener(chatId, message => {
+          setMessageList(messages => [
+            ...messages,
+            message
+          ]);
+        });
+      });
+  }, []);
+
+  const messageListChangeListener = (chatId, callback) => {
+    firebase.database().ref('messages').child(chatId).on('child_added', snapshot => {
+      callback(snapshot.val());
+    });
+
+    firebase.database().ref('messages').child(chatId).on('child_changed', snapshot => {
+      callback(snapshot.val());
+    });
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
+
     const currentMessage = {
+      id: `message${Date.now()}`,
       text: message,
       author: authors.me
     };
-    dispatch(addMessageWithThunk(chatId, currentMessage));
+    
+    db.ref('messages').child(chatId).push(currentMessage);
     setMessage('');
   };
 
@@ -33,7 +63,7 @@ export default function Chat() {
     <React.Fragment>
       <span>Chat {chatId} page</span>
       <div className="message-block">
-      { messageList[chatId] ? messageList[chatId].map((message, id) => 
+      { messageList ? messageList.map((message, id) => 
         <Message
           message={ message }
           key={ id }
