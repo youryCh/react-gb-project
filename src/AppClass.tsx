@@ -1,7 +1,15 @@
 import React from 'react';
 import './App.css';
 
-export class AppClass extends React.Component {
+interface State {
+  messageList: object[];
+  message: string;
+  botText: string;
+}
+
+interface Props {}
+
+export class AppClass extends React.Component<Props, State> {
   state = {
     messageList: [],
     message: '',
@@ -35,14 +43,14 @@ export class AppClass extends React.Component {
     }, 1500)
   }
 
-  handleChange = event => {
+  handleChange = (event: any) => {
     this.setState({
       message: event.target.value
     })
   }
 
   handleClick = () => {
-    this.setState(state => {
+    this.setState((state: State) => {
       return {
         messageList: [
           ...state.messageList,
@@ -59,7 +67,7 @@ export class AppClass extends React.Component {
     return (
       <div className="App">
       <div className="message-block">
-        { this.state.messageList.map((message, index) => {
+        { this.state.messageList.map((message: any, index) => {
           return (
           <div key={ index }>
             <p>{ message.text }</p>
