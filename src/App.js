@@ -1,9 +1,10 @@
 import './app.sass'
 import { useEffect, useState, useRef } from 'react'
 import { authors, chats } from './constants'
-import Message from './Message'
+// import Message from './Message'
 import { TextField, Grid, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
+import { MessageClass } from './MessageClass';
 
 function App() {
   const [messageList, setMessageList] = useState([])
@@ -68,7 +69,7 @@ function App() {
       <Grid item xs={12}>
         <div className="message-block">
           { messageList.map((message, index) => 
-            <Message
+            <MessageClass
               author={ message.author }
               text={ message.text }
               key={ index }
