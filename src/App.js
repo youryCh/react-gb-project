@@ -7,6 +7,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ChatList from './components/ChatList';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from './store/messages/actions';
+import { Auth } from './components/auth';
 
 function App() {
   const [message, setMessage] = useState('')
@@ -77,6 +78,7 @@ function App() {
           </button>
         </form>
       </Grid>
+      <Auth />
     </div>
   )
 }
