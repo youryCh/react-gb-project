@@ -1,0 +1,30 @@
+options:
+  cors: true
+tests:
+  test:
+    action: personio_de_authentication/auth.post
+    input:
+      client_id: ddd
+      client_secret: dfff
+paths:
+  /1:
+    get:
+      action: personio_de_authentication/auth.post
+      input:
+        client_id: '1'
+        client_secret: '1'
+  /paths1:
+    get:
+      action: personio_de_authentication/auth.post
+  /paths2:
+    get:
+      action: action1
+  /auth:
+    get:
+      action: personio_de_authentication/auth.post
+  /get_token:
+    post:
+      action: action2
+actions:
+  action1: ./actions/action1.js
+  action2: ./actions/action2.js
